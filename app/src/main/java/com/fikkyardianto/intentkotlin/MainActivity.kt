@@ -1,6 +1,7 @@
 package com.fikkyardianto.intentkotlin
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,10 +17,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val btnMoveWithDataActivity: Button = findViewById(R.id.btn_move_activity_data)
         btnMoveWithDataActivity.setOnClickListener(this)
+
+        val btnDialNumber: Button = findViewById(R.id.btn_dial_number)
+        btnDialNumber.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            // Explicit Intent
             R.id.btn_move_activity -> {
                 val moveIntent = Intent(this@MainActivity, MoveActivity::class.java)
                 startActivity(moveIntent)
@@ -29,6 +34,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 moveWithDataIntent.putExtra(MoveWithDataActivity.EXTRA_NAME, "Fiki Boy")
                 moveWithDataIntent.putExtra(MoveWithDataActivity.EXTRA_AGE, 21)
                 startActivity(moveWithDataIntent)
+            }
+
+            // Implicit Intent
+            R.id.btn_dial_number -> {
+                val phoneNumber = "085156016821"
+                val dialPhoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse(("tel:$phoneNumber")))
+                startActivity(dialPhoneIntent)
             }
         }
     }
